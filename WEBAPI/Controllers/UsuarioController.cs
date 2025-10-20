@@ -38,7 +38,8 @@ namespace WEBAPI.Controllers
         ///     "id": 1,
         ///     "nombre": "Bryan",
         ///     "apellido": "Valdez",
-        ///     "username": "allanxdtl"
+        ///     "username": "allanxdtl",
+        ///     "rol":"Administrador"
         ///   }
         /// ]
         /// ```

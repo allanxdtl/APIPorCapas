@@ -1,7 +1,4 @@
-﻿
-using System.Threading.Tasks;
-using WEBAPI.DTOs;
-using WEBAPI.Models;
+﻿using WEBAPI.Models;
 using WEBAPI.Repositories;
 
 namespace WEBAPI.Services
@@ -14,7 +11,7 @@ namespace WEBAPI.Services
             _repository = repository;
         }
 
-        public async Task<IEnumerable<RolDto>> ObtenerRoles()
+        public async Task<IEnumerable<object>> ObtenerRoles()
         {
             return await _repository.GetRoles();
         }

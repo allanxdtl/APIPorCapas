@@ -20,6 +20,9 @@ builder.Services.AddScoped<IRol, RolRepository>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IRolService, RolService>();
 
+//Mapeado de Dtos con modelos
+builder.Services.AddAutoMapper(typeof(Program));
+
 //CORS
 builder.Services.AddCors(c => c.AddPolicy("default", policy =>
 {

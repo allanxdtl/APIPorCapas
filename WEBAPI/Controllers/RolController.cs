@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using WEBAPI.DTOs;
 using WEBAPI.Models;
 using WEBAPI.Services;
@@ -24,14 +25,17 @@ namespace WEBAPI.Controllers
     public class RolController : ControllerBase
     {
         private readonly IRolService _service;
+        private readonly IMapper _mapper;
 
         /// <summary>
         /// Constructor del controlador con inyección de dependencia del servicio de roles.
         /// </summary>
         /// <param name="service">Instancia del servicio de roles.</param>
-        public RolController(IRolService service)
+        /// <param name="mapper">Instancia del mapeador</param>
+        public RolController(IRolService service, IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         // ---------------------------------------------------------------------------------------
@@ -85,10 +89,9 @@ namespace WEBAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create(RolDto rol)
         {
-            Role rolModel = new()
-            {
-                Descripcion = rol.Descripcion
-            };
+
+            var rolModel = _mapper.Map<Role>(rol);
+
             bool result = await _service.CrearRol(rolModel);
 
             return result ? Ok(new { message = "Rol creado exitosamente" }) :
@@ -120,11 +123,8 @@ namespace WEBAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update(RolDto rol)
         {
-            Role rolModel = new()
-            {
-                Id = rol.Id,
-                Descripcion = rol.Descripcion
-            };
+            var rolModel = _mapper.Map<Role>(rol);
+
             bool result = await _service.EditarRol(rolModel);
 
             return result ? Ok(new { message = "Rol editado exitosamente" }) : BadRequest(new { message = "Error al completar la peticion" });
