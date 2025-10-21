@@ -26,23 +26,26 @@ namespace WEBAPI.Controllers
     {
         private readonly IRolService _service;
         private readonly IMapper _mapper;
+        private readonly ILogger<RolController> _logger;
 
         /// <summary>
         /// Constructor del controlador con inyección de dependencia del servicio de roles.
         /// </summary>
         /// <param name="service">Instancia del servicio de roles.</param>
         /// <param name="mapper">Instancia del mapeador</param>
-        public RolController(IRolService service, IMapper mapper)
+        /// <param name="logger">Instancia del logger</param>
+        public RolController(IRolService service, IMapper mapper, ILogger<RolController> logger)
         {
             _service = service;
             _mapper = mapper;
+            _logger = logger;
         }
 
         // ---------------------------------------------------------------------------------------
         // GET: api/Rol
         // ---------------------------------------------------------------------------------------
         /// <summary>
-        /// 🔍 Obtiene la lista completa de roles registrados en el sistema.
+        /// Obtiene la lista completa de roles registrados en el sistema.
         /// </summary>
         /// <remarks>
         /// Devuelve todos los roles disponibles.  
@@ -69,7 +72,7 @@ namespace WEBAPI.Controllers
         // POST: api/Rol
         // ---------------------------------------------------------------------------------------
         /// <summary>
-        /// ➕ Crea un nuevo rol en el sistema.
+        /// Crea un nuevo rol en el sistema.
         /// </summary>
         /// <remarks>
         /// Inserta un nuevo rol en la base de datos.  
@@ -102,7 +105,7 @@ namespace WEBAPI.Controllers
         // PUT: api/Rol
         // ---------------------------------------------------------------------------------------
         /// <summary>
-        /// ✏️ Actualiza un rol existente en el sistema.
+        /// Actualiza un rol existente en el sistema.
         /// </summary>
         /// <remarks>
         /// Permite modificar la descripción de un rol ya existente.  
@@ -134,7 +137,7 @@ namespace WEBAPI.Controllers
         // DELETE: api/Rol/{id}
         // ---------------------------------------------------------------------------------------
         /// <summary>
-        /// 🗑️ Elimina un rol existente por su identificador.
+        /// Elimina un rol existente por su identificador.
         /// </summary>
         /// <remarks>
         /// Este endpoint elimina un rol de la base de datos usando su ID.  
@@ -164,10 +167,12 @@ namespace WEBAPI.Controllers
             catch (InvalidOperationException ex)
             {
                 // Error por integridad referencial
+                _logger.LogError("{error}", ex.Message);
                 return BadRequest(new { message = ex.Message });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError("{error}", ex.Message);
                 // Cualquier otro error inesperado
                 return StatusCode(500, new { message = "Ocurrió un error inesperado" });
             }

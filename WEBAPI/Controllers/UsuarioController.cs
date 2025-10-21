@@ -26,7 +26,7 @@ namespace WEBAPI.Controllers
         // GET: api/Usuario
         // ---------------------------------------------------------------------------------------
         /// <summary>
-        /// 🔍 Obtiene la lista completa de usuarios registrados en el sistema.
+        /// Obtiene la lista completa de usuarios registrados en el sistema.
         /// </summary>
         /// <remarks>
         /// Este endpoint devuelve todos los usuarios activos o registrados en el sistema.
@@ -59,7 +59,7 @@ namespace WEBAPI.Controllers
         // POST: api/Usuario/Login
         // ---------------------------------------------------------------------------------------
         /// <summary>
-        /// 🔐 Verifica si las credenciales del usuario son correctas.
+        /// Verifica si las credenciales del usuario son correctas.
         /// </summary>
         /// <remarks>
         /// Este endpoint permite validar el inicio de sesión de un usuario mediante su nombre y contraseña.
@@ -73,9 +73,9 @@ namespace WEBAPI.Controllers
         /// ```
         /// 
         /// **Respuestas posibles:**
-        /// - ✅ **200 OK** — Acceso autorizado.  
-        /// - ❌ **401 Unauthorized** — Credenciales incorrectas.  
-        /// - ⚠️ **400 Bad Request** — Solicitud mal formada.  
+        /// - **200 OK** — Acceso autorizado.  
+        /// - **401 Unauthorized** — Credenciales incorrectas.  
+        /// - **400 Bad Request** — Solicitud mal formada.  
         /// </remarks>
         /// <param name="usuario">Objeto con las credenciales del usuario (`Username`, `Password`).</param>
         /// <response code="200">Acceso autorizado.</response>
@@ -100,7 +100,7 @@ namespace WEBAPI.Controllers
         // POST: api/Usuario
         // ---------------------------------------------------------------------------------------
         /// <summary>
-        /// ➕ Crea un nuevo usuario en el sistema.
+        /// Crea un nuevo usuario en el sistema.
         /// </summary>
         /// <remarks>
         /// Este endpoint inserta un nuevo registro de usuario si el nombre de usuario no existe.
@@ -116,8 +116,8 @@ namespace WEBAPI.Controllers
         /// ```
         /// 
         /// **Respuestas posibles:**
-        /// - ✅ **200 OK** — Usuario insertado correctamente.  
-        /// - ⚠️ **400 Bad Request** — El usuario ya existe.  
+        /// - **200 OK** — Usuario insertado correctamente.  
+        /// - **400 Bad Request** — El usuario ya existe.  
         /// </remarks>
         /// <param name="usuario">Objeto de tipo <see cref="Usuario"/> con los datos del nuevo usuario.</param>
         /// <response code="200">Usuario insertado correctamente.</response>
@@ -138,7 +138,7 @@ namespace WEBAPI.Controllers
         // DELETE: api/Usuario/{id}
         // ---------------------------------------------------------------------------------------
         /// <summary>
-        /// 🗑️ Elimina un usuario del sistema por su identificador.
+        /// Elimina un usuario del sistema por su identificador.
         /// </summary>
         /// <remarks>
         /// Elimina un usuario existente según su ID.  
@@ -149,8 +149,8 @@ namespace WEBAPI.Controllers
         /// ```
         /// 
         /// **Respuestas posibles:**
-        /// - ✅ **200 OK** — Usuario eliminado.  
-        /// - ❌ **404 Not Found** — No se encontró el usuario solicitado.  
+        /// - **200 OK** — Usuario eliminado.  
+        /// - **404 Not Found** — No se encontró el usuario solicitado.  
         /// </remarks>
         /// <param name="id">Identificador numérico del usuario.</param>
         /// <response code="200">Usuario eliminado.</response>
@@ -171,7 +171,7 @@ namespace WEBAPI.Controllers
         // PUT: api/Usuario
         // ---------------------------------------------------------------------------------------
         /// <summary>
-        /// ✏️ Actualiza la información de un usuario existente.
+        /// Actualiza la información de un usuario existente.
         /// </summary>
         /// <remarks>
         /// Este endpoint modifica los datos de un usuario registrado.
@@ -188,8 +188,8 @@ namespace WEBAPI.Controllers
         /// ```
         /// 
         /// **Respuestas posibles:**
-        /// - ✅ **200 OK** — Usuario actualizado correctamente.  
-        /// - ⚠️ **409 Conflict** — No se pudo actualizar el usuario.  
+        /// - **200 OK** — Usuario actualizado correctamente.  
+        /// - **409 Conflict** — No se pudo actualizar el usuario.  
         /// </remarks>
         /// <param name="usuario">Objeto con los datos actualizados del usuario.</param>
         /// <response code="200">Usuario actualizado correctamente.</response>

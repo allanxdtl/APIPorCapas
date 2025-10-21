@@ -18,6 +18,7 @@ namespace WEBAPI.Services
             return await _repository.ListUsers();
         }
 
+
         public async Task<bool> IngresarUsuario(Usuario user)
         {
             return await _repository.LogUser(user);
