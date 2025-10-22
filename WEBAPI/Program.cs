@@ -3,8 +3,10 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Reflection;
 using WEBAPI.Context;
-using WEBAPI.Repositories;
-using WEBAPI.Services;
+using WEBAPI.Repositories.Implementations;
+using WEBAPI.Repositories.Interfaces;
+using WEBAPI.Services.Implementations;
+using WEBAPI.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,10 +24,12 @@ builder.Services.AddDbContext<ResidenciasContext>(options => options.UseSqlServe
 //Repositorios
 builder.Services.AddScoped<IUsuario, UsuarioRepository>();
 builder.Services.AddScoped<IRol, RolRepository>();
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 
 //Servicios
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IRolService, RolService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
 
 //Mapeado de Dtos con modelos
 builder.Services.AddAutoMapper(typeof(Program));

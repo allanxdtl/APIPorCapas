@@ -1,8 +1,9 @@
 ﻿using WEBAPI.Utils;
 using WEBAPI.Models;
-using WEBAPI.Repositories;
+using WEBAPI.Repositories.Interfaces;
+using WEBAPI.Services.Interfaces;
 
-namespace WEBAPI.Services
+namespace WEBAPI.Services.Implementations
 {
     public class UsuarioService : IUsuarioService
     {

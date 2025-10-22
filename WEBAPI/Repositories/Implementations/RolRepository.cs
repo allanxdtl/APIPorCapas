@@ -2,8 +2,9 @@
 using WEBAPI.Context;
 using WEBAPI.DTOs;
 using WEBAPI.Models;
+using WEBAPI.Repositories.Interfaces;
 
-namespace WEBAPI.Repositories
+namespace WEBAPI.Repositories.Implementations
 {
 	public class RolRepository : IRol
 	{
@@ -15,7 +16,7 @@ namespace WEBAPI.Repositories
 
 		public async Task<IEnumerable<object>> GetRoles()
 		{
-			return await _context.Roles.Select(x => new { Id = x.Id, Descripcion = x.Descripcion }).ToListAsync();
+			return await _context.Roles.Select(x => new { x.Id, x.Descripcion }).ToListAsync();
 		}
 
 		public async Task<bool> CreateRol(Role rol)

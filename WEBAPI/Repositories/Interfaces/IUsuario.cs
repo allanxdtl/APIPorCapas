@@ -1,6 +1,6 @@
 ﻿using WEBAPI.Models;
 
-namespace WEBAPI.Repositories
+namespace WEBAPI.Repositories.Interfaces
 {
     /// <summary>
     /// Contrato de uso para manejar usuarios en la API

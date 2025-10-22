@@ -2,9 +2,10 @@
 using System.Threading.Tasks;
 using WEBAPI.Context;
 using WEBAPI.Models;
+using WEBAPI.Repositories.Interfaces;
 using WEBAPI.Utils;
 
-namespace WEBAPI.Repositories
+namespace WEBAPI.Repositories.Implementations
 {
 
     /// <summary>

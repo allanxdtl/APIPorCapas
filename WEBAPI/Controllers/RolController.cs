@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WEBAPI.DTOs;
 using WEBAPI.Models;
-using WEBAPI.Services;
+using WEBAPI.Services.Interfaces;
 
 namespace WEBAPI.Controllers
 {

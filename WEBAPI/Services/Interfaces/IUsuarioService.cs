@@ -1,6 +1,6 @@
 ﻿using WEBAPI.Models;
 
-namespace WEBAPI.Services
+namespace WEBAPI.Services.Interfaces
 {
 
     /// <summary>

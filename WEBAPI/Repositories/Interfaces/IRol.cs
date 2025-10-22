@@ -1,6 +1,6 @@
 ﻿using WEBAPI.Models;
 
-namespace WEBAPI.Repositories
+namespace WEBAPI.Repositories.Interfaces
 {
     public interface IRol
     {

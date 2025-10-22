@@ -8,6 +8,7 @@ namespace WEBAPI.DTOs
 		public MappingProfile()
 		{
 			CreateMap<RolDto, Role>();
-		}
+			CreateMap<ClienteDto, Cliente>();
+        }
 	}
 }
