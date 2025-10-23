@@ -12,13 +12,15 @@ namespace WEBAPI.Controllers
     [ApiController]
     public class ClienteController : ControllerBase
     {
-        public readonly IClienteService _service;
-        public readonly IMapper _mapper;
+        private readonly IClienteService _service;
+        private readonly IMapper _mapper;
+        private readonly ILogger<ClienteController> _logger;
 
-        public ClienteController(IClienteService service, IMapper mapper)
+        public ClienteController(IClienteService service, IMapper mapper, ILogger<ClienteController> logger)
         {
             _service = service;
             _mapper = mapper;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -38,10 +40,12 @@ namespace WEBAPI.Controllers
             }
             catch (ArgumentException ex)
             {
+                _logger.LogError("{error}", ex.Message);
                 return BadRequest(new { message = ex.Message });
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogError("{error}", ex.Message);
                 return Conflict(new { message = ex.Message });
             }
 
@@ -60,10 +64,12 @@ namespace WEBAPI.Controllers
             }
             catch (ArgumentException ex)
             {
+                _logger.LogError("{error}", ex.Message);
                 return BadRequest(new { message = ex.Message });
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogError("{error}", ex.Message);
                 return Conflict(new { message = ex.Message });
             }
 
@@ -80,6 +86,7 @@ namespace WEBAPI.Controllers
             }
             catch (InvalidOperationException ex)
             {
+                _logger.LogError("{error}", ex.Message);
                 return Conflict(new { message = ex.Message });
             }
             return result ? Ok(new { message = "Cliente eliminado correctamente" }) : BadRequest();

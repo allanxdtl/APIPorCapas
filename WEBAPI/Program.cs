@@ -25,11 +25,15 @@ builder.Services.AddDbContext<ResidenciasContext>(options => options.UseSqlServe
 builder.Services.AddScoped<IUsuario, UsuarioRepository>();
 builder.Services.AddScoped<IRol, RolRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IVentasRepository, VentasRepository>();
+builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 
 //Servicios
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IRolService, RolService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped<IVentasServices, VentasServices>();
+builder.Services.AddScoped<IProductoService, ProductoService>();
 
 //Mapeado de Dtos con modelos
 builder.Services.AddAutoMapper(typeof(Program));
