@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using QuestPDF.Fluent;
 using WEBAPI.Context;
+using WEBAPI.Documents;
 using WEBAPI.Models;
 using WEBAPI.Repositories.Interfaces;
 
@@ -38,15 +40,27 @@ namespace WEBAPI.Repositories.Implementations
                 await _context.Ventas.AddAsync(header);
                 await _context.SaveChangesAsync();
 
-                //foreach (var item in detalle)
-                //{
-                //    item.IdVentaHeader = header.Id;
-                //}
-
-                //await _context.VentaDetalles.AddRangeAsync(detalle);
-                //await _context.SaveChangesAsync();
-
                 await transaction.CommitAsync();
+
+                VentaHeader? hearderReal = await _context.Ventas
+                    .Include(v => v.Cliente)
+                    .Include(v => v.Usuario)
+                    .Include(v => v.Detalles)
+                        .ThenInclude(d => d.Producto)
+                    .FirstOrDefaultAsync(v => v.Id == header.Id);
+
+                if (hearderReal == null)
+                    return;
+
+                var pdfDoc = new VentaPDFDocument(hearderReal);
+                var pdfBytes = pdfDoc.GeneratePdf();
+
+                var pdfDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "pdfs");
+                if (!Directory.Exists(pdfDir))
+                    Directory.CreateDirectory(pdfDir);
+
+                var pdfPath = Path.Combine(pdfDir, $"Venta_{header.Id}.pdf");
+                await File.WriteAllBytesAsync(pdfPath, pdfBytes);
             }
             catch
             {
