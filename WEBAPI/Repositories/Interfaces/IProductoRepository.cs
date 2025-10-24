@@ -7,8 +7,8 @@ namespace WEBAPI.Repositories.Interfaces
     {
         Task<IEnumerable<ProductoDto>> GetAllProductosAsync();
         Task<bool> CreateProductoAsync(Producto producto);
-        Task<bool> UpdateProducto(Producto producto);
-        Task<bool> DeleteProducto(int id);
-        Task<Producto?> VerifyBarcode(string codigoBarra);
+        Task<bool> UpdateProductoAsync(Producto producto);
+        Task<bool> DeleteProductoAsync(Producto producto);
+        Task<Producto?> VerifyBarcodeAsync(string codigoBarra);
     }
 }

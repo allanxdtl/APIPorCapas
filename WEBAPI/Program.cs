@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Reflection;
@@ -69,17 +70,28 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 app.UseSerilogRequestLogging();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "styles")),
+    RequestPath = "/styles"
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsProduction() || app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Productos v1");
+        c.DocumentTitle = "Documentación API - La Bajadita";
+        c.InjectStylesheet("/styles/theme-material.css");
+    });
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 app.MapControllers();
 app.UseCors("default");
+
 app.Run();

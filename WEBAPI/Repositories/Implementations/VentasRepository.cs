@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using WEBAPI.Context;
 using WEBAPI.Models;
 using WEBAPI.Repositories.Interfaces;
@@ -31,14 +32,27 @@ namespace WEBAPI.Repositories.Implementations
 
         public async Task CreateVenta(VentaHeader header, List<VentaDetalle> detalle)
         {
-            await _context.Ventas.AddAsync(header);
-            await _context.SaveChangesAsync();
-            foreach (var item in detalle)
+            await using IDbContextTransaction transaction = await _context.Database.BeginTransactionAsync();
+            try
             {
-                item.IdVentaHeader = header.Id;
+                await _context.Ventas.AddAsync(header);
+                await _context.SaveChangesAsync();
+
+                //foreach (var item in detalle)
+                //{
+                //    item.IdVentaHeader = header.Id;
+                //}
+
+                //await _context.VentaDetalles.AddRangeAsync(detalle);
+                //await _context.SaveChangesAsync();
+
+                await transaction.CommitAsync();
             }
-            await _context.VentaDetalles.AddRangeAsync(detalle);
-            await _context.SaveChangesAsync();
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
     }
 }

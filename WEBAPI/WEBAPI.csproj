@@ -36,4 +36,10 @@
 	  </Content>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="styles\theme-material.css">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>

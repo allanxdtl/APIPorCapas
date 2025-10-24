@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using WEBAPI.Context;
 using WEBAPI.DTOs;
 using WEBAPI.Models;
@@ -27,24 +28,62 @@ namespace WEBAPI.Repositories.Implementations
                 .ToListAsync();
         }
 
-        public Task<bool> CreateProductoAsync(Producto producto)
+        public async Task<bool> CreateProductoAsync(Producto producto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _context.Productos.AddAsync(producto);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public Task<bool> UpdateProducto(Producto producto)
+        public async Task<bool> UpdateProductoAsync(Producto producto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Productos.Update(producto);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (SqlException)
+            {
+                throw new Exception("No se ha podido establecer la conexion con la base de datos");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public Task<bool> DeleteProducto(int id)
+        public async Task<bool> DeleteProductoAsync(Producto producto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Productos.Remove(producto);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (DbUpdateException)
+            {
+                throw new InvalidOperationException("No es posible eliminar el producto, tiene ventas relacionadas");
+            }
         }
 
-        public Task<Producto?> VerifyBarcode(string codigoBarra)
+        public async Task<Producto?> VerifyBarcodeAsync(string codigoBarra)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _context.Productos.AsNoTracking().FirstOrDefaultAsync(p => p.Codigo == codigoBarra);
+            }
+            catch (SqlException)
+            {
+                throw new Exception("No ha sido posible conectarse a la base de datos");
+            }
         }
     }
 }
